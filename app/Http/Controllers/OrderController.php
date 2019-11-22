@@ -3,26 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
         $orders = Order::latest()->paginate(5);
 
-        return view('order.index',compact('orders'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('order.index', compact('orders'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -32,75 +34,77 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'integer',
         ]);
 
-        Product::create($request->all());
+        Order::create($request->all());
 
-        return redirect()->route('order.index')
-            ->with('success','Product created successfully.');
+        return redirect()->route('orders.index')->with('success', 'Order created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function show(Order $order)
+    public function show(Request $request)
     {
-        return view('order.show',compact('product'));
+        $order = Order::find($request->id);
+        return view('order.show', compact('order'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function edit(Order $order)
+    public function edit(Request $request)
     {
-        return view('order.edit',compact('product'));
+        $order = Order::find($request->id);
+        return view('order.edit', compact('order'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Order $order
+     * @return Response
      */
     public function update(Request $request, Order $order)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'integer',
         ]);
 
-        $product->update($request->all());
+        $order->update($request->all());
 
-        return redirect()->route('order.index')
-            ->with('success','Product updated successfully');
+        return redirect()->route('orders.index')->with('success', 'Order updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param Order $order
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Order $order)
     {
-        $product->delete();
+        $order->delete();
 
-        return redirect()->route('order.index')
-            ->with('success','Product deleted successfully');
+        return redirect()->route('orders.index')->with('success', 'Order deleted successfully');
     }
 }
