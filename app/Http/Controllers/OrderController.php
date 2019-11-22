@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Product;
+use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,9 +18,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::latest()->paginate(5);
+        $data['orders'] = Order::latest()->paginate(5);
+        $data['users'] = User::select(['id', 'first_name', 'last_name'])->get();
+        $data['products'] = Product::select(['id', 'name', 'price'])->get();
 
-        return view('order.index', compact('orders'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('order.index', $data)->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -48,7 +52,11 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        return view('order.edit', compact('order'));
+        $data['order'] = $order;
+        $data['users'] = User::select(['id', 'first_name', 'last_name'])->get();
+        $data['products'] = Product::select(['id', 'name', 'price'])->get();
+
+        return view('order.edit', $data);
     }
 
     /**

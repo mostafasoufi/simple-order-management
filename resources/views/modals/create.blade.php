@@ -12,24 +12,38 @@
 
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <strong>User:</strong>
-                                <input type="text" name="user_id" class="form-control" placeholder="User" required>
+                                <select class="form-control" name="user_id" required>
+                                    <option value="">Select User...</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user['id'] }}">
+                                            {{ $user['first_name'] }} {{ $user['last_name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <strong>Product:</strong>
-                                <input type="text" name="product_id" class="form-control" placeholder="Product" required>
+                                <select class="form-control" name="product_id" required>
+                                    <option value="">Select Product...</option>
+                                    @foreach ($products as $product)
+                                        <option value="{{ $product['id'] }}">
+                                            {{ $product['name'] }} ({{ $product['price'] }} EUR)
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <strong>Quantity:</strong>
-                                <input type="text" name="quantity" class="form-control" placeholder="Quantity" required>
+                                <input type="number" name="quantity" class="form-control" placeholder="Quantity" required>
                             </div>
                         </div>
                     </div>
