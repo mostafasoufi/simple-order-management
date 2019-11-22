@@ -11,6 +11,10 @@
 |
 */
 
-Route::resources([
-    'order' => 'Controller',
+Route::get('/', function () {
+    return redirect()->route('orders.index');
+});
+
+Route::resource('/orders', 'OrderController')->parameters([
+    'orders' => 'id'
 ]);
