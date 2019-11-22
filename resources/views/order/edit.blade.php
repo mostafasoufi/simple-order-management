@@ -66,6 +66,10 @@
                         <input type="number" name="quantity" value="{{ $order->quantity }}" class="form-control" placeholder="Quantity">
                     </div>
                 </div>
+
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
             </div>
         </div>
     </form>

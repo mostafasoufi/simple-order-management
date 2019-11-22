@@ -8,3 +8,13 @@
 .navbar {
     margin-bottom: 24px;
 }
+
+.order-price {
+    font-size: 13px;
+    margin-right: 5px;
+    font-weight: normal;
+
+    &.has-discount {
+        text-decoration-line: line-through;
+    }
+}
