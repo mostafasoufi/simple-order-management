@@ -22,16 +22,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('order.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -51,26 +41,13 @@ class OrderController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function show(Request $request)
-    {
-        $order = Order::find($request->id);
-        return view('order.show', compact('order'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $request
+     * @param Order $order
      * @return Response
      */
-    public function edit(Request $request)
+    public function edit(Order $order)
     {
-        $order = Order::find($request->id);
         return view('order.edit', compact('order'));
     }
 

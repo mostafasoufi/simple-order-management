@@ -39,14 +39,14 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Product:</strong>
-                    <input type="text" name="product_id" value="{{ $order->user_id }}" class="form-control" placeholder="Product">
+                    <input type="text" name="product_id" value="{{ $order->product_id }}" class="form-control" placeholder="Product">
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Quantity:</strong>
-                    <input type="text" name="quantity" value="{{ $order->user_id }}" class="form-control" placeholder="Quantity">
+                    <input type="text" name="quantity" value="{{ $order->quantity }}" class="form-control" placeholder="Quantity">
                 </div>
             </div>
 

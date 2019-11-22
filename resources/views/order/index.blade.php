@@ -3,12 +3,13 @@
 @section('title', 'Orders')
 @section('content')
     <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Laravel 5.7 CRUD Example from scratch - ItSolutionStuff.com</h2>
+        <div class="col-lg-12">
+            <div class="float-left">
+                <h2>Orders</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('orders.create') }}"> Add New Order</a>
+
+            <div class="float-right">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrderModal">New Order</button>
             </div>
         </div>
     </div>
@@ -16,6 +17,17 @@
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
 
@@ -37,7 +49,6 @@
                 <td>{{ $order->created_at }}</td>
                 <td>
                     <form action="{{ route('orders.destroy',$order->id) }}" method="POST">
-                        <a class="btn btn-info" href="{{ route('orders.show',$order->id) }}">Show</a>
                         <a class="btn btn-primary" href="{{ route('orders.edit',$order->id) }}">Edit</a>
 
                         @csrf
@@ -52,4 +63,5 @@
 
     {!! $orders->links() !!}
 
+    @include('modals.create')
 @endsection

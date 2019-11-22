@@ -15,6 +15,4 @@ Route::get('/', function () {
     return redirect()->route('orders.index');
 });
 
-Route::resource('/orders', 'OrderController')->parameters([
-    'orders' => 'id'
-]);
+Route::resource('/orders', 'OrderController')->only(['index', 'store', 'edit', 'update', 'destroy']);
