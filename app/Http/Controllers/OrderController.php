@@ -14,7 +14,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::latest()->paginate(5);
+
+        return view('order.index',compact('orders'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -24,7 +26,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('order.create');
     }
 
     /**
@@ -35,7 +37,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+
+        Product::create($request->all());
+
+        return redirect()->route('order.index')
+            ->with('success','Product created successfully.');
     }
 
     /**
@@ -46,7 +56,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('order.show',compact('product'));
     }
 
     /**
@@ -57,7 +67,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        return view('order.edit',compact('product'));
     }
 
     /**
@@ -69,7 +79,15 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+
+        $product->update($request->all());
+
+        return redirect()->route('order.index')
+            ->with('success','Product updated successfully');
     }
 
     /**
@@ -80,6 +98,9 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        $product->delete();
+
+        return redirect()->route('order.index')
+            ->with('success','Product deleted successfully');
     }
 }
