@@ -14,11 +14,20 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['orders'] = Order::sortable()->paginate(10);
+        $search = $request->get('term');
+
+        $data['orders'] = Order::sortable()
+            ->orWhereHas('user', function ($q) use ($search) {
+                $q->where('first_name', 'like', '%' . $search . '%');
+            })->orWhereHas('product', function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%');
+            })->paginate(15);
+
         $data['users'] = User::select(['id', 'first_name', 'last_name'])->get();
         $data['products'] = Product::select(['id', 'name', 'price'])->get();
 

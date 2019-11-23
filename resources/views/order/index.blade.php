@@ -57,7 +57,7 @@
             <th>Price</th>
             <th>Quantity</th>
             <th>Total</th>
-            <th>Date</th>
+            <th>@sortablelink('created_at', 'Date')</th>
             <th>Actions</th>
         </tr>
         </thead>
