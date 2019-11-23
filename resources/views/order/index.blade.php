@@ -69,7 +69,7 @@
                 <td>{{ $order->getProductName()->price }} EUR</td>
                 <td>{{ $order->quantity }}</td>
                 <td>
-                    {{ App\Http\Helper\ShowDiscountElement($order->product_id, $order->quantity) }}
+                    {{ App\Http\Helper\PricePriceElement($order->id) }}
                 </td>
                 <td>{{ $order->created_at->format('d M Y, h:m A') }}</td>
                 <td class="text-right">

@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\Order;
 use Tests\TestCase;
-use function App\Http\Helper\CalculateDiscount;
 
 class OrderTest extends TestCase
 {
@@ -15,11 +14,11 @@ class OrderTest extends TestCase
      */
     public function testOrderPrice()
     {
-        $orders = Order::join('product_discount', 'orders.product_id', '!=', 'product_discount.product_id')->first();
+        $orders = Order::where('product_id', '!=', '1')->first();
 
         if ($orders) {
-            $price = CalculateDiscount($orders->product_id, $orders->quantity);
-            $this->assertIsFloat($price['normal']);
+            $price = Order::getOrderPrice($orders->id);
+            $this->assertEquals($price['normal'], $price['total']);
         }
     }
 
@@ -30,11 +29,11 @@ class OrderTest extends TestCase
      */
     public function testOrderPriceWithDiscount()
     {
-        $orders = Order::join('product_discount', 'orders.product_id', '=', 'product_discount.product_id')->first();
+        $orders = Order::where('product_id', '1')->where('quantity', '>=', '3')->first();
 
         if ($orders) {
-            $price = CalculateDiscount($orders->product_id, $orders->quantity);
-            $this->assertIsFloat($price['discount']);
+            $price = Order::getOrderPrice($orders->id);
+            $this->assertLessThan($price['normal'], $price['total']);
         }
     }
 }
