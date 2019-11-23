@@ -38,7 +38,7 @@ class OrderController extends Controller
                 } elseif ($date == 'today') {
                     $q->whereDate('orders.created_at', Carbon::now());
                 }
-            })->paginate(15);
+            })->orderBy('id', 'desc')->paginate(15);
 
         $data['users'] = User::select(['id', 'first_name', 'last_name'])->get();
         $data['products'] = Product::select(['id', 'name', 'price'])->get();
