@@ -8,6 +8,8 @@ class User extends Model
 {
     protected $table = 'users';
 
+    public $sortable = ['first_name'];
+
     /**
      * @param $id
      * @return mixed
