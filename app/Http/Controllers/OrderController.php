@@ -19,13 +19,17 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->get('term');
+        $search = $request->get('s');
 
         $data['orders'] = Order::sortable()
             ->orWhereHas('user', function ($q) use ($search) {
-                $q->where('first_name', 'like', '%' . $search . '%');
+                if ($search) {
+                    $q->where('first_name', 'like', '%' . $search . '%');
+                }
             })->orWhereHas('product', function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%');
+                if ($search) {
+                    $q->where('name', 'like', '%' . $search . '%');
+                }
             })->paginate(15);
 
         $data['users'] = User::select(['id', 'first_name', 'last_name'])->get();

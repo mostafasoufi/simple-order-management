@@ -35,14 +35,14 @@
 
     <div class="float-right">
         <form class="form-inline">
-            <select name="period" class="form-control mb-2 mr-sm-2">
-                <option value="all">All Time</option>
-                <option value="7-days-ago">Last 7 days</option>
-                <option value="today">Today</option>
+            <select name="time" class="form-control mb-2 mr-sm-2">
+                <option value="all" {{ ( app('request')->input('time') == 'all') ? 'selected' : '' }}>All Time</option>
+                <option value="week" {{ ( app('request')->input('time') == 'week') ? 'selected' : '' }}>Last 7 days</option>
+                <option value="today" {{ ( app('request')->input('time') == 'today') ? 'selected' : '' }}>Today</option>
             </select>
 
             <div class="input-group mb-2 mr-sm-2">
-                <input type="text" name="term" class="form-control" placeholder="Enter search term...">
+                <input type="text" name="s" class="form-control" placeholder="Enter search term..." value="{{ app('request')->input('s') }}">
             </div>
 
             <button type="submit" class="btn btn-primary mb-2">Search</button>
