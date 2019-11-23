@@ -8,11 +8,11 @@ use function App\Http\Helper\Percent;
 class MathTest extends TestCase
 {
     /**
-     * Discount test.
+     * Percent test.
      *
      * @return void
      */
-    public function testDiscount()
+    public function testCalculatePercent()
     {
         $value = Percent(2000, 20);
         $this->assertEquals($value, 1600);
