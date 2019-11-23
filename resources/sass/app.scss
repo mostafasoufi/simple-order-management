@@ -1,1 +1,21 @@
-//
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Variables
+@import 'variables';
+// Libraries
+@import '~bootstrap/scss/bootstrap';
+@import "~font-awesome/scss/font-awesome.scss";
+
+.navbar {
+    margin-bottom: 24px;
+}
+
+.order-price {
+    font-size: 13px;
+    margin-right: 5px;
+    font-weight: normal;
+
+    &.has-discount {
+        text-decoration-line: line-through;
+    }
+}
