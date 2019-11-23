@@ -2,8 +2,9 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 // Variables
 @import 'variables';
-// Bootstrap
+// Libraries
 @import '~bootstrap/scss/bootstrap';
+@import "~font-awesome/scss/font-awesome.scss";
 
 .navbar {
     margin-bottom: 24px;

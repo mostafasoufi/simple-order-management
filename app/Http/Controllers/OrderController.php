@@ -18,7 +18,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data['orders'] = Order::latest()->paginate(5);
+        $data['orders'] = Order::sortable()->paginate(10);
         $data['users'] = User::select(['id', 'first_name', 'last_name'])->get();
         $data['products'] = Product::select(['id', 'name', 'price'])->get();
 

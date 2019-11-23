@@ -9,7 +9,7 @@
             </div>
 
             <div class="float-right">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addOrderModal">New Order</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addOrderModal">New Order</button>
             </div>
         </div>
     </div>
@@ -52,8 +52,8 @@
     <table class="table">
         <thead class="thead-light">
         <tr>
-            <th>User</th>
-            <th>Product</th>
+            <th>@sortablelink('user.first_name', 'User')</th>
+            <th>@sortablelink('product.name', 'Product')</th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Total</th>
@@ -87,7 +87,7 @@
         </tbody>
     </table>
 
-    {!! $orders->links() !!}
+    {!! $orders->appends(\Request::except('page'))->render() !!}
 
     @include('modals.create')
 @endsection
