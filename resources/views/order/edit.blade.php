@@ -8,7 +8,7 @@
                 <h2>Edit Order</h2>
             </div>
             <div class="float-right">
-                <a class="btn btn-outline-dark" href="{{ route('orders.index') }}"> Back</a>
+                <a class="btn btn-outline-dark" href="{{ route('orders.index') }}"><i class="fa fa-arrow-left"></i> Back</a>
             </div>
         </div>
     </div>

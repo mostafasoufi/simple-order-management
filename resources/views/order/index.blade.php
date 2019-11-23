@@ -9,7 +9,7 @@
             </div>
 
             <div class="float-right">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addOrderModal">New Order</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addOrderModal"><i class="fa fa-plus"></i> New Order</button>
             </div>
         </div>
     </div>
@@ -35,17 +35,17 @@
 
     <div class="float-right">
         <form class="form-inline">
-            <select name="time" class="form-control mb-2 mr-sm-2">
-                <option value="all" {{ ( app('request')->input('time') == 'all') ? 'selected' : '' }}>All Time</option>
-                <option value="week" {{ ( app('request')->input('time') == 'week') ? 'selected' : '' }}>Last 7 days</option>
-                <option value="today" {{ ( app('request')->input('time') == 'today') ? 'selected' : '' }}>Today</option>
+            <select name="date" class="form-control mb-2 mr-sm-2">
+                <option value="">All Time</option>
+                <option value="week" {{ ( app('request')->input('date') == 'week') ? 'selected' : '' }}>Last 7 days</option>
+                <option value="today" {{ ( app('request')->input('date') == 'today') ? 'selected' : '' }}>Today</option>
             </select>
 
             <div class="input-group mb-2 mr-sm-2">
                 <input type="text" name="s" class="form-control" placeholder="Enter search term..." value="{{ app('request')->input('s') }}">
             </div>
 
-            <button type="submit" class="btn btn-primary mb-2">Search</button>
+            <button type="submit" class="btn btn-primary mb-2"><i class="fa fa-search"></i> Search</button>
         </form>
     </div>
 
@@ -72,14 +72,16 @@
                     {{ App\Http\Helper\ShowDiscountElement($order->product_id, $order->quantity) }}
                 </td>
                 <td>{{ $order->created_at->format('d M Y, h:m A') }}</td>
-                <td>
+                <td class="text-right">
                     <form action="{{ route('orders.destroy',$order->id) }}" method="POST">
-                        <a class="btn btn-primary" href="{{ route('orders.edit',$order->id) }}">Edit</a>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a class="btn btn-primary btn-sm" href="{{ route('orders.edit',$order->id) }}">Edit</a>
 
-                        @csrf
-                        @method('DELETE')
+                            @csrf
+                            @method('DELETE')
 
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </div>
                     </form>
                 </td>
             </tr>

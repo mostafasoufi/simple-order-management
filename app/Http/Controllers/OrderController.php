@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\Product;
 use App\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,15 +21,22 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('s');
+        $date = $request->get('date');
 
         $data['orders'] = Order::sortable()
-            ->orWhereHas('user', function ($q) use ($search) {
+            ->where(function ($q) use ($search) {
                 if ($search) {
-                    $q->where('first_name', 'like', '%' . $search . '%');
+                    $q->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('first_name', 'like', '%' . $search . '%');
+                    })->orWhereHas('product', function ($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    });
                 }
-            })->orWhereHas('product', function ($q) use ($search) {
-                if ($search) {
-                    $q->where('name', 'like', '%' . $search . '%');
+            })->where(function ($q) use ($date) {
+                if ($date == 'week') {
+                    $q->whereBetween('orders.created_at', [Carbon::now()->subDays(7), Carbon::now()]);
+                } elseif ($date == 'today') {
+                    $q->whereDate('orders.created_at', Carbon::now());
                 }
             })->paginate(15);
 
