@@ -33,16 +33,17 @@ cp .env.example .env
 ```
 You should also configure your local environment in this file.
 
-#### 4. Generate secret key
-This will update your `.env` file
-```
-php artisan key:generate
-```
-
-#### 5. Serving Your Application
+#### 4. Serving the Application
 To serve your project locally, you can use the built-in PHP development server:
 ```
 php -S localhost:8000 -t public
+```
+
+
+#### 5. Generate secret key
+This will update your `.env` file
+```
+php artisan key:generate
 ```
 
 #### 6. Running Migrations
@@ -58,6 +59,12 @@ php artisan db:seed
 ```
 
 # Unit Test
+Unix area:
+```
+vendor/bin/phpunit
+```
+
+Windows area:
 ```
 vendor\bin\phpunit
 ```
