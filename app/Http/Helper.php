@@ -20,7 +20,7 @@ function Percent($total, $discount)
  * @param $order_id
  * @return string
  */
-function PricePriceElement($order_id)
+function PrintPrice($order_id)
 {
     // Get order price.
     $order = Order::getOrderPrice($order_id);
